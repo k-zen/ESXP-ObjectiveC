@@ -54,7 +54,7 @@
     if (![self hasNext])
         return nil;
     
-    self->currentNode = [self->nodes popLastObject];
+    self->currentNode = [self->nodes pop];
     self->currentChildren = [self->currentNode getChildNodes];
     
     int childLen = (self->currentChildren != nil) ? (int) [self->currentChildren count] : 0;
@@ -80,9 +80,9 @@
     for (int i = 0; i < childLen; i++) {
         id<ESXPNode> child = [self->nodes peek];
         if ([child isEqualNode:[self->currentChildren objectAtIndex:i]])
-            [self->nodes popLastObject];
+            [self->nodes pop];
     }
 }
 
-- (BOOL)hasNext { return [self->nodes sizeOfStack] > 0; }
+- (BOOL)hasNext { return [self->nodes size] > 0; }
 @end

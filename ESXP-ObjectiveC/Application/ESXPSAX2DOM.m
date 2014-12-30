@@ -79,11 +79,11 @@ static BOOL const kDEBUG_MODE = NO;
     if (kDEBUG_MODE)
         NSLog(@"didEndElement   --> %@", elementName);
     
-    [self.stack popLastObject];
+    [self.stack pop];
     self.lastSibling = nil;
 }
 
-- (void) parserDidEndDocument:(NSXMLParser *)parser { [self.stack popLastObject]; }
+- (void) parserDidEndDocument:(NSXMLParser *)parser { [self.stack pop]; }
 
 -(ESXPDocument *)getDOM { return self.document; }
 @end

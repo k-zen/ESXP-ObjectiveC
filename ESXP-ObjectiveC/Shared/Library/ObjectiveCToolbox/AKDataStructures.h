@@ -66,7 +66,7 @@
 /// Get the element at the head of this stack.
 ///
 /// \return The element at the head of this stack.
-- (AKStack *)pop;
+- (id)pop;
 
 /// Add a new element to the head of this stack.
 ///
@@ -76,7 +76,7 @@
 /// Get the element at the head of this stack without removing it from the stack.
 ///
 /// \return The element at the head of this stack.
-- (AKStack *)peek;
+- (id)peek;
 
 /// Calculates the size of this stack.
 ///

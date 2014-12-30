@@ -1,3 +1,7 @@
+=================== Release 0.1.1 2014-12-29 =====================
+Bugs
+    * Corrected a minor bug with the compatibility of the static library "ObjectiveCToolbox".
+
 =================== Release 0.1.0 2014-12-29 =====================
 Description
     * First usable version of this library. Contains the main interface for the library.

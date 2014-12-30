@@ -25,10 +25,10 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "AKDataStructures.h"
 #import "ESXPElement.h"
 #import "ESXPNode.h"
 #import "ESXPStackDOMWalker.h"
-#import "ObjectiveCToolbox.h"
 
 /// Traverses a DOM tree using a stack as a buffer for nodes.
 ///
