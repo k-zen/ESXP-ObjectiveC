@@ -1,3 +1,8 @@
+=================== Release 0.1.2 XXXX-XX-XX =====================
+Changes
+    * Added new method to calculate all element nodes inside a document.
+    * Added new class for all constants.
+
 =================== Release 0.1.1 2014-12-29 =====================
 Bugs
     * Corrected a minor bug with the compatibility of the static library "ObjectiveCToolbox".

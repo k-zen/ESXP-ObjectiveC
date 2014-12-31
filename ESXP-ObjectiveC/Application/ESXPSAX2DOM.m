@@ -24,9 +24,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#import "ESXPConstants.h"
 #import "ESXPSAX2DOM.h"
-
-static BOOL const kDEBUG_MODE = NO;
 
 @implementation ESXPSAX2DOM
 - (ESXPSAX2DOM *)init
@@ -44,7 +43,7 @@ static BOOL const kDEBUG_MODE = NO;
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
-    if (kDEBUG_MODE)
+    if (kDEBUG)
         NSLog(@"didStartElement --> %@", elementName);
     
     ESXPElement *tmp = [ESXPElement newBuild:elementName];
@@ -64,7 +63,7 @@ static BOOL const kDEBUG_MODE = NO;
 
 -(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-    if (kDEBUG_MODE)
+    if (kDEBUG)
         NSLog(@"foundCharacters --> %@", string);
     
     ESXPElement *last = (ESXPElement *)[self.stack peek];
@@ -76,7 +75,7 @@ static BOOL const kDEBUG_MODE = NO;
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    if (kDEBUG_MODE)
+    if (kDEBUG)
         NSLog(@"didEndElement   --> %@", elementName);
     
     [self.stack pop];

@@ -24,6 +24,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#import "ESXPConstants.h"
 #import "ESXPDocument.h"
 
 @implementation ESXPDocument
@@ -43,10 +44,10 @@
     ESXPElement *root = (ESXPElement *) [document getRootNode];
     
     // Build string
-    NSMutableString *string   = [[root description] mutableCopy];
+    NSMutableString *string   = [[NSString stringWithFormat:@"\n%@", [root description]] mutableCopy];
     NSMutableArray  *nodeList = [root getChildNodes];
     for (id<ESXPNode> child in nodeList)
-        [string appendString:[NSString stringWithFormat:@"\n%@%@", [NSMutableString new], [child printNode:1]]];
+        [string appendString:[NSString stringWithFormat:@"%@%@", [NSMutableString new], [child printNode:1]]];
     
     return string;
 }
@@ -54,4 +55,26 @@
 - (NSString *)description { return [NSString stringWithFormat:@"Name: DOMDocument"]; }
 
 - (ESXPElement *)getRootNode { return self->root; }
+
+- (int)getElementNodeCount
+{
+    NSNumber       *counter  = [NSNumber numberWithInt:0];
+    NSMutableArray *nodeList = [root getChildNodes];
+    
+    for (id<ESXPNode> child in nodeList) {
+        if ([child getNodeType] == ELEMENT_NODE) {
+            counter = [NSNumber numberWithInt:[counter intValue] + 1];
+            
+            if (kDEBUG) {
+                NSLog(@"Counting Node ==> %@", [child getNodeName]);
+                NSLog(@"Count ==> %i", [counter intValue]);
+            }
+        }
+    }
+    
+    for (id<ESXPNode> child in nodeList)
+        [child countElementNodes:&counter];
+    
+    return [counter intValue];
+}
 @end

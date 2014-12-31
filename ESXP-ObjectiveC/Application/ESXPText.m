@@ -41,6 +41,8 @@
 
 - (id<ESXPNode>)appendChild:(id<ESXPNode>)newChild { return nil; }
 
+- (void)countElementNodes:(NSNumber **)counter {}
+
 - (NSString *)description { return [NSString stringWithFormat:@"Name: %@ - Value: %@", self->name, self->value]; }
 
 - (NSDictionary *)getAttributes { return nil; }

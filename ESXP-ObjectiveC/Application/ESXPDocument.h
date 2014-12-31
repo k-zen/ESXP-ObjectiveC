@@ -53,6 +53,11 @@
 
 /// Returns the root node of this document.
 ///
-/// \returns The root node of this document.
+/// \return The root node of this document.
 - (ESXPElement *)getRootNode;
+
+/// Returns the count of all element nodes of this document.
+///
+/// \return The count of all element nodes of this document.
+- (int)getElementNodeCount;
 @end

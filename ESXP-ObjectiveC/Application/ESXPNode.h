@@ -90,6 +90,11 @@ typedef enum Nodes : unsigned short
 /// \return The child recently added.
 - (id<ESXPNode>)appendChild:(id<ESXPNode>)newChild;
 
+/// Counts all element nodes inside this node.
+///
+/// \param counter The counter.
+- (void)countElementNodes:(NSNumber **)counter;
+
 /// A dictionary containing the attributes of this node (if it is an
 /// Element) or null otherwise.
 ///

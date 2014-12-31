@@ -24,6 +24,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#import "ESXPConstants.h"
 #import "ESXPElement.h"
 
 @implementation ESXPElement
@@ -50,14 +51,32 @@
     return newChild;
 }
 
+- (void)countElementNodes:(NSNumber **)counter
+{
+    for (id<ESXPNode> child in self->children) {
+        if ([child getNodeType] == ELEMENT_NODE) {
+            *counter = [NSNumber numberWithInt:[*counter intValue] + 1];
+            
+            if (kDEBUG) {
+                NSLog(@"Counting Node ==> %@", [child getNodeName]);
+                NSLog(@"Count ==> %i", [*counter intValue]);
+            }
+        }
+    }
+    
+    // Drill down more.
+    for (id<ESXPNode> child in self->children)
+        [child countElementNodes:counter];
+}
+
 - (NSString *)description
 {
-    NSMutableString *str = [NSMutableString stringWithFormat:@"Name: %@ - Value: %@\n", self->name, self->value];
+    NSMutableString *str = [NSMutableString stringWithFormat:@"Name: %@ - Value: %@", self->name, self->value];
     NSEnumerator *enumerator = [self->attributes keyEnumerator];
     id key;
     while ((key = [enumerator nextObject]))
         [str appendFormat:@"\t%@ : %@\n", (NSString *) key, [self->attributes objectForKey:key]];
-        
+    
     return str;
 }
 
