@@ -28,6 +28,7 @@
 #import "ESXPDocument.h"
 
 @implementation ESXPDocument
+#pragma ****** Static Methods ******
 + (ESXPDocument *)newBuild:(NSString *)name
 {
     ESXPDocument *instance = [[ESXPDocument alloc] init];
@@ -52,6 +53,49 @@
     return string;
 }
 
+#pragma ****** Instance Methods ******
+- (void)normalize
+{
+    // Logic:
+    // Use recursion to normalize all nodes in the tree.
+    NSMutableArray  *nodeList             = [root getChildNodes];
+    NSMutableArray  *objectsToRemove      = [NSMutableArray new];
+    NSMutableString *normalizedText       = [NSMutableString new];
+    short           firstTextNodePosition = -1;
+    
+    for (id<ESXPNode> child in nodeList) {
+        if ([child getNodeType] == TEXT_NODE) {
+            // Merge all TEXT_NODES together.
+            // Save the position of the first TEXT_NODES in the array.
+            if (firstTextNodePosition < 0)
+                firstTextNodePosition = [nodeList indexOfObject:child];
+            // Now extract the text and mark the TEXT_NODE for removal.
+            [normalizedText appendString:[child getNodeValue]];
+            [objectsToRemove addObject:child];
+            
+            if (kDEBUG)
+                NSLog(@"Normalizing Node ==> %@", [child getNodeName]);
+        }
+    }
+    
+    // Remove the objects.
+    if ([objectsToRemove count] > 0)
+        [nodeList removeObjectsInArray:objectsToRemove];
+    
+    // Now finally add a new TEXT_NODE at first position found, but only if normalization has been done.
+    if (firstTextNodePosition > -1) {
+        ESXPText *mergedTextNode = [ESXPText newBuild:nil];
+        [mergedTextNode setNodeValue:normalizedText];
+        [nodeList insertObject:mergedTextNode atIndex:firstTextNodePosition];
+        if (kDEBUG)
+            NSLog(@"\tMerged Node Result ==> %@", [mergedTextNode getNodeValue]);
+    }
+    
+    // Drill down more.
+    for (id<ESXPNode> child in nodeList)
+        [child normalize];
+}
+
 - (NSString *)description { return [NSString stringWithFormat:@"Name: DOMDocument"]; }
 
 - (ESXPElement *)getRootNode { return self->root; }
@@ -72,6 +116,8 @@
         }
     }
     
+    // Use recursion to count all nodes in the tree.
+    // Pass the counter as a reference.
     for (id<ESXPNode> child in nodeList)
         [child countElementNodes:&counter];
     

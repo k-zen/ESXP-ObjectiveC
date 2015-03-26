@@ -1,12 +1,13 @@
-=================== Release 0.1.2 XXXX-XX-XX =====================
+=================== Release 0.1.2 2015-03-26 =====================
 Changes
+    * Added support to normalize all *Text Nodes* present in the tree. And also some minor modifications in DOM tree printing. (26/03/2015)
     * Added new method to calculate all element nodes inside a document.
     * Added new class for all constants.
 
 =================== Release 0.1.1 2014-12-29 =====================
 Bugs
-    * Corrected a minor bug with the compatibility of the static library "ObjectiveCToolbox".
+    * Corrected a minor bug with the compatibility of the static library "ObjectiveCToolbox". (29/12/2014)
 
 =================== Release 0.1.0 2014-12-29 =====================
 Description
-    * First usable version of this library. Contains the main interface for the library.
+    * First usable version of this library. Contains the main interface for the library. (29/12/2014)

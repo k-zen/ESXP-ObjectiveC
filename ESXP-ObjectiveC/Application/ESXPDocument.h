@@ -37,6 +37,7 @@
     ESXPElement *root; // The root node of this document.
 }
 
+#pragma ****** Static Methods ******
 /// Builder of new instances. Follows the Builder Pattern.
 ///
 /// \param name The name of the node.
@@ -50,6 +51,14 @@
 ///
 /// \return A string containing this document's data.
 + (NSString *)printDocument:(ESXPDocument *)document;
+
+#pragma ****** Instance Methods ******
+/// Puts all Text nodes in the full depth of the sub-tree underneath this
+/// Node, including attribute nodes, into a "normal" form where only
+/// structure (e.g., elements, comments, processing instructions, CDATA
+/// sections, and entity references) separates Text nodes, i.e., there
+/// are neither adjacent Text nodes nor empty Text nodes.
+- (void)normalize;
 
 /// Returns the root node of this document.
 ///

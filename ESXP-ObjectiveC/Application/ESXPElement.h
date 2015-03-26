@@ -26,6 +26,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ESXPNode.h"
+#import "ESXPText.h"
 
 /// Class for representing a DOM Element.
 ///

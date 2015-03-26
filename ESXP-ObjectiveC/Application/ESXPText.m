@@ -43,7 +43,7 @@
 
 - (void)countElementNodes:(NSNumber **)counter {}
 
-- (NSString *)description { return [NSString stringWithFormat:@"Name: %@ - Value: %@", self->name, self->value]; }
+- (NSString *)description { return [NSString stringWithFormat:@"<TEXT> Name: %@ - Value: %@\n", self->name, self->value]; }
 
 - (NSDictionary *)getAttributes { return nil; }
 
@@ -79,10 +79,7 @@
 
 - (NSString *)lookupNamespaceURI:(NSString *)prefix { return @""; }
 
-- (void)normalize
-{
-    // TODO
-}
+- (void)normalize { /* Do nothing, cause TEXT_NODES can't have TEXT_NODES. */ }
 
 - (NSString *)printNode:(int)indent
 {

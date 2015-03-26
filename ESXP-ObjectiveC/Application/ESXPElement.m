@@ -71,11 +71,11 @@
 
 - (NSString *)description
 {
-    NSMutableString *str = [NSMutableString stringWithFormat:@"Name: %@ - Value: %@", self->name, self->value];
+    NSMutableString *str = [NSMutableString stringWithFormat:@"<ELEMENT> Name: %@ - Value: %@\n", self->name, self->value];
     NSEnumerator *enumerator = [self->attributes keyEnumerator];
     id key;
     while ((key = [enumerator nextObject]))
-        [str appendFormat:@"\t%@ : %@\n", (NSString *) key, [self->attributes objectForKey:key]];
+        [str appendFormat:@"\t<ATTRIBUTE> %@ : %@\n", (NSString *) key, [self->attributes objectForKey:key]];
     
     return str;
 }
@@ -116,7 +116,41 @@
 
 - (void)normalize
 {
-    // TODO
+    short           firstTextNodePosition = -1;
+    NSMutableArray  *objectsToRemove      = [NSMutableArray new];
+    NSMutableString *normalizedText       = [NSMutableString new];
+    
+    for (id<ESXPNode> child in self->children) {
+        if ([child getNodeType] == TEXT_NODE) {
+            // Merge all TEXT_NODES together.
+            // Save the position of the first TEXT_NODES in the array.
+            if (firstTextNodePosition < 0)
+                firstTextNodePosition = [self->children indexOfObject:child];
+            // Now extract the text and mark the TEXT_NODE for removal.
+            [normalizedText appendString:[child getNodeValue]];
+            [objectsToRemove addObject:child];
+            
+            if (kDEBUG)
+                NSLog(@"Normalizing Node ==> %@", [child getNodeName]);
+        }
+    }
+    
+    // Remove the objects.
+    if ([objectsToRemove count] > 0)
+        [self->children removeObjectsInArray:objectsToRemove];
+    
+    // Now finally add a new TEXT_NODE at first position found, but only if normalization has been done.
+    if (firstTextNodePosition > -1) {
+        ESXPText *mergedTextNode = [ESXPText newBuild:nil];
+        [mergedTextNode setNodeValue:normalizedText];
+        [self->children insertObject:mergedTextNode atIndex:firstTextNodePosition];
+        if (kDEBUG)
+            NSLog(@"\tMerged Node Result ==> %@", [mergedTextNode getNodeValue]);
+    }
+    
+    // Drill down more.
+    for (id<ESXPNode> child in self->children)
+        [child normalize];
 }
 
 - (NSString *)printNode:(int)indent
@@ -129,7 +163,7 @@
     // Build string
     NSMutableString *string = [[self description] mutableCopy];
     for (id<ESXPNode> child in self->children)
-        [string appendString:[NSString stringWithFormat:@"\n%@%@", padding, [child printNode:indent + 1]]];
+        [string appendString:[NSString stringWithFormat:@"%@%@", padding, [child printNode:indent + 1]]];
     
     return string;
 }
