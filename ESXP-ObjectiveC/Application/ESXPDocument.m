@@ -28,7 +28,7 @@
 #import "ESXPDocument.h"
 
 @implementation ESXPDocument
-#pragma ****** Static Methods ******
+// MARK: Builders
 + (ESXPDocument *)newBuild:(NSString *)name
 {
     ESXPDocument *instance = [[ESXPDocument alloc] init];
@@ -40,6 +40,7 @@
     return instance;
 }
 
+// MARK: Methods
 + (NSString *)printDocument:(ESXPDocument *)document
 {
     ESXPElement *root = (ESXPElement *) [document getRootNode];
@@ -53,7 +54,6 @@
     return string;
 }
 
-#pragma ****** Instance Methods ******
 - (void)normalize
 {
     // Logic:
@@ -102,16 +102,16 @@
 
 - (int)getElementNodeCount
 {
-    NSNumber       *counter  = [NSNumber numberWithInt:0];
+    unsigned short  counter  = 0;
     NSMutableArray *nodeList = [root getChildNodes];
     
     for (id<ESXPNode> child in nodeList) {
         if ([child getNodeType] == ELEMENT_NODE) {
-            counter = [NSNumber numberWithInt:[counter intValue] + 1];
+            counter++;
             
             if (kDEBUG) {
                 NSLog(@"Counting Node ==> %@", [child getNodeName]);
-                NSLog(@"Count ==> %i", [counter intValue]);
+                NSLog(@"Count ==> %u", counter);
             }
         }
     }
@@ -121,6 +121,6 @@
     for (id<ESXPNode> child in nodeList)
         [child countElementNodes:&counter];
     
-    return [counter intValue];
+    return counter;
 }
 @end

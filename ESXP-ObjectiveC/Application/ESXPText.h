@@ -27,13 +27,15 @@
 #import <Foundation/Foundation.h>
 #import "ESXPNode.h"
 
+@class ESXPElement;
+
 /// Class for representing DOM Text.
 ///
 /// \author Andreas P. Koenzen <akc at apkc.net>
 @interface ESXPText : NSObject <ESXPNode>
 {
-    ESXPText *parent; // The parent node of this node.
-    NSString *name;   // The name of this node.
-    NSString *value;  // The value of this node.
+    ESXPElement *parent; // The parent node of this node.
+    NSString    *name;   // The name of this node.
+    NSString    *value;  // The value of this node.
 }
 @end

@@ -27,6 +27,7 @@
 #import "ESXPProcessor.h"
 
 @implementation ESXPProcessor
+// MARK: Builders
 + (ESXPProcessor *)newBuild
 {
     ESXPProcessor *instance = [[ESXPProcessor alloc] init];
@@ -36,6 +37,7 @@
         return nil;
 }
 
+// MARK: Methods
 - (NSString *)searchTagValue:(ESXPDocument *)doc rootNodeName:(NSString *)rootNodeName tagName:(NSString *)tagName strict:(BOOL)strict
 {
     ESXPStackDOMWalker *walker = [[ESXPStackDOMWalker newBuild] configure:[doc getRootNode] nodesToProcess:ELEMENT_NODE];

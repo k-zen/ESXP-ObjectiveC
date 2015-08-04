@@ -37,7 +37,7 @@
     ESXPElement *root; // The root node of this document.
 }
 
-#pragma ****** Static Methods ******
+// MARK: Builders
 /// Builder of new instances. Follows the Builder Pattern.
 ///
 /// \param name The name of the node.
@@ -45,6 +45,7 @@
 /// \return A new instance of ESXPNode if available, otherwise return NIL.
 + (ESXPDocument *)newBuild:(NSString *)name;
 
+// MARK: Methods
 /// Prints this document.
 ///
 /// \param document This document.
@@ -52,7 +53,6 @@
 /// \return A string containing this document's data.
 + (NSString *)printDocument:(ESXPDocument *)document;
 
-#pragma ****** Instance Methods ******
 /// Puts all Text nodes in the full depth of the sub-tree underneath this
 /// Node, including attribute nodes, into a "normal" form where only
 /// structure (e.g., elements, comments, processing instructions, CDATA

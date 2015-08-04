@@ -27,6 +27,7 @@
 #import "ESXPStackDOMWalker.h"
 
 @implementation ESXPStackDOMWalker
+// MARK: Builders
 + (ESXPStackDOMWalker *)newBuild
 {
     ESXPStackDOMWalker *instance = [[ESXPStackDOMWalker alloc] init];
@@ -36,6 +37,7 @@
         return nil;
 }
 
+// MARK: Methods
 - (ESXPStackDOMWalker *)configure:(ESXPElement *)rootNode nodesToProcess:(unsigned short)ntp
 {
     if (rootNode == nil) {

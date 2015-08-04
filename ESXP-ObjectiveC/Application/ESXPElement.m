@@ -28,11 +28,29 @@
 #import "ESXPElement.h"
 
 @implementation ESXPElement
+// MARK: ESXPNode Implementation
 + (id<ESXPNode>)newBuild:(NSString *)name
 {
     ESXPElement *instance = [[ESXPElement alloc] init];
     if (instance) {
         instance->parent     = nil;
+        instance->name       = name;
+        instance->value      = nil;
+        instance->children   = [NSMutableArray new];
+        instance->attributes = [NSMutableDictionary new];
+    }
+    else {
+        return nil;
+    }
+    
+    return instance;
+}
+
++ (id<ESXPNode>)newBuild:(NSString *)name parentNode:(id<ESXPNode>)parentNode
+{
+    ESXPElement *instance = [[ESXPElement alloc] init];
+    if (instance) {
+        instance->parent     = (ESXPElement *)parentNode;
         instance->name       = name;
         instance->value      = nil;
         instance->children   = [NSMutableArray new];
@@ -51,15 +69,15 @@
     return newChild;
 }
 
-- (void)countElementNodes:(NSNumber **)counter
+- (void)countElementNodes:(unsigned short *)counter
 {
     for (id<ESXPNode> child in self->children) {
         if ([child getNodeType] == ELEMENT_NODE) {
-            *counter = [NSNumber numberWithInt:[*counter intValue] + 1];
+            *counter = *counter + 1;
             
             if (kDEBUG) {
                 NSLog(@"Counting Node ==> %@", [child getNodeName]);
-                NSLog(@"Count ==> %i", [*counter intValue]);
+                NSLog(@"Count ==> %u", *counter);
             }
         }
     }
@@ -172,7 +190,8 @@
 
 - (id<ESXPNode>)replaceChild:(id<ESXPNode>)newChild oldChild:(id<ESXPNode>)oldChild { return nil; }
 
-- (void)setAttribute:(NSString *)nodeName value:(NSString *)nodeValue { [self->attributes setObject:nodeValue forKey:nodeName]; }
-
 - (void)setNodeValue:(NSString *)nodeValue { self->value = nodeValue; }
+
+// MARK: Methods
+- (void)setAttribute:(NSString *)nodeName value:(NSString *)nodeValue { [self->attributes setObject:nodeValue forKey:nodeName]; }
 @end

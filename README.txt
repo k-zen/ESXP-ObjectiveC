@@ -15,6 +15,10 @@ FILES
         Source code.
     ESXP-ObjectiveC/Shared/Library/*
         Dependencies.
+    ESXP-ObjectiveCTest/*
+        Testing code.
+    ESXP-ObjectiveCTest/Files/*
+        Testing files.
 
 DOCUMENTATION
     Not Available

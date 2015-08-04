@@ -28,6 +28,7 @@
 #import "ESXPSAX2DOM.h"
 
 @implementation ESXPSAX2DOM
+// MARK: NSObject Overriding
 - (ESXPSAX2DOM *)init
 {
     self = [super init];
@@ -39,14 +40,15 @@
     return self;
 }
 
+// MARK: NSXMLParserDelegate Implementation
 - (void) parserDidStartDocument:(NSXMLParser *)parser { [self.stack push:[self.document getRootNode]]; }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {
     if (kDEBUG)
-        NSLog(@"didStartElement --> %@", elementName);
+        NSLog(@"PARSER:didStartElement ==> %@", elementName);
     
-    ESXPElement *tmp = [ESXPElement newBuild:elementName];
+    ESXPElement *tmp = [ESXPElement newBuild:elementName parentNode:[self.stack peek]];
     
     // Add the attributes to the node.
     NSEnumerator *enumerator = [attributeDict keyEnumerator];
@@ -64,7 +66,7 @@
 -(void) parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
     if (kDEBUG)
-        NSLog(@"foundCharacters --> %@", string);
+        NSLog(@"PARSER:foundCharacters ==> %@", string);
     
     ESXPElement *last = (ESXPElement *)[self.stack peek];
     ESXPText    *text = [ESXPText newBuild:nil];
@@ -76,7 +78,7 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     if (kDEBUG)
-        NSLog(@"didEndElement   --> %@", elementName);
+        NSLog(@"PARSER:didEndElement   ==> %@", elementName);
     
     [self.stack pop];
     self.lastSibling = nil;
@@ -84,5 +86,6 @@
 
 - (void) parserDidEndDocument:(NSXMLParser *)parser { [self.stack pop]; }
 
+// MARK: Methods
 -(ESXPDocument *)getDOM { return self.document; }
 @end

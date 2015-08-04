@@ -83,6 +83,14 @@ typedef enum Nodes : unsigned short
 /// \return A new instance of ESXPNode if available, otherwise return NIL.
 + (id<ESXPNode>)newBuild:(NSString *)name;
 
+/// Builder of new instances. Follows the Builder Pattern.
+///
+/// \param name       The name of the node.
+/// \param parentNode The parent node of this node.
+///
+/// \return A new instance of ESXPNode if available, otherwise return NIL.
++ (id<ESXPNode>)newBuild:(NSString *)name parentNode:(id<ESXPNode>)parentNode;
+
 /// Appends a new child to the children list.
 ///
 /// \param newChild The new child to append.
@@ -93,7 +101,7 @@ typedef enum Nodes : unsigned short
 /// Counts all element nodes inside this node.
 ///
 /// \param counter The counter.
-- (void)countElementNodes:(NSNumber **)counter;
+- (void)countElementNodes:(unsigned short *)counter;
 
 /// A dictionary containing the attributes of this node (if it is an
 /// Element) or null otherwise.

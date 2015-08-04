@@ -89,11 +89,13 @@
     unsigned short nodesToProcess;
 }
 
+// MARK: Builders
 /// Builder of new instances. Follows the Builder Pattern.
 ///
 /// \return A new instance of this class or nil if any problem.
 + (ESXPStackDOMWalker *)newBuild;
 
+// MARK: Methods
 - (ESXPStackDOMWalker *)configure:(ESXPElement *)rootNode nodesToProcess:(unsigned short)nodesToProcess;
 
 - (id<ESXPNode>)nextNode;

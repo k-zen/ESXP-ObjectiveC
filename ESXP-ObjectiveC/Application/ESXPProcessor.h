@@ -33,11 +33,13 @@
 /// \author Andreas P. Koenzen <akc at apkc.net>
 /// \see    Builder Pattern
 @interface ESXPProcessor : NSObject
+// MARK: Builders
 /// Builder of new instances. Follows the Builder Pattern.
 ///
 /// \return A new instance of this class or nil if any problem.
 + (ESXPProcessor *)newBuild;
 
+// MARK: Methods
 /// Walks the DOM tree in search of a given tag and when found retrieves the tag's value.<br/>
 /// <b>Throws:</b> TagNotFoundException: If the required tag was not found.
 ///

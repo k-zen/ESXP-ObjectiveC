@@ -39,6 +39,7 @@
 @property (nonatomic, strong) ESXPDocument *document;
 @property (nonatomic, strong) AKStack      *stack;
 
+// MARK: Methods
 /// Returns the XML file as a DOM representation.
 ///
 /// \return The DOM object.

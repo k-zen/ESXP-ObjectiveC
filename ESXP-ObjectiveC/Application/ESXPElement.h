@@ -40,6 +40,7 @@
     NSMutableDictionary *attributes; // The attributes of this node.
 }
 
+// MARK: Methods
 /// Adds a new attribute.
 ///
 /// \param name  The name of the attribute.

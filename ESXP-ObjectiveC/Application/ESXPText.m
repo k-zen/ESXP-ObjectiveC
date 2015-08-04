@@ -24,9 +24,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#import "ESXPElement.h"
 #import "ESXPText.h"
 
 @implementation ESXPText
+// MARK: ESXPNode Implementation
 + (id<ESXPNode>)newBuild:(NSString *)name
 {
     ESXPText *instance = [[ESXPText alloc] init];
@@ -39,9 +41,21 @@
     return instance;
 }
 
++ (id<ESXPNode>)newBuild:(NSString *)name parentNode:(id<ESXPNode>)parentNode
+{
+    ESXPText *instance = [[ESXPText alloc] init];
+    if (instance) {
+        instance->parent = (ESXPElement *)parentNode;
+        instance->name   = @"#text";
+        instance->value  = @"";
+    }
+    
+    return instance;
+}
+
 - (id<ESXPNode>)appendChild:(id<ESXPNode>)newChild { return nil; }
 
-- (void)countElementNodes:(NSNumber **)counter {}
+- (void)countElementNodes:(unsigned short *)counter {}
 
 - (NSString *)description { return [NSString stringWithFormat:@"<TEXT> Name: %@ - Value: %@\n", self->name, self->value]; }
 

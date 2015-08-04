@@ -1,5 +1,15 @@
+======================== ALPHA RELEASES ==========================
+=================== Release 0.2.1 2015-08-04 =====================
+Description
+    * Complete *Alpha 0.2* version with testing functionalities.
+Changes
+    * Added support to save *Parent Nodes*. (04/08/2015)
+    * Added testing functionalities. (04/08/2015)
+    * Added universal version of the static library *ObjectiveCToolbox*. (03/08/2015)
+
 =================== Release 0.1.2 2015-03-26 =====================
 Changes
+    * Replaced the node counter type from *NSNumber* to *unsigned short*. (03/08/2015)
     * Added support to normalize all *Text Nodes* present in the tree. And also some minor modifications in DOM tree printing. (26/03/2015)
     * Added new method to calculate all element nodes inside a document.
     * Added new class for all constants.
