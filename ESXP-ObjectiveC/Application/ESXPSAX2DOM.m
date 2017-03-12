@@ -35,7 +35,7 @@
     if (instance) {
         instance.document = [ESXPDocument newBuild:@"_root"];
         instance.stack    = [[AKStack alloc] initWithSize:maxNodes];
-        return instance
+        return instance;
     }
     else {
         return nil;
