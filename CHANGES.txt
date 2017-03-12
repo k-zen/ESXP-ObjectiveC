@@ -1,4 +1,10 @@
 ======================== ALPHA RELEASES ==========================
+=================== Release 0.2.2 2017-03-12 =====================
+Description
+    * Complete *Alpha 0.2* version with testing functionalities.
+Changes
+    * Added support to define the size of the internal stack at initialization of the walker. (12/03/2017)
+
 =================== Release 0.2.1 2015-08-04 =====================
 Description
     * Complete *Alpha 0.2* version with testing functionalities.

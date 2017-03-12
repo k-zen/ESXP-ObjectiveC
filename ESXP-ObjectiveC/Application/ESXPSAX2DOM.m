@@ -29,12 +29,12 @@
 
 @implementation ESXPSAX2DOM
 // MARK: NSObject Overriding
-- (ESXPSAX2DOM *)init
+- (ESXPSAX2DOM *)initWithSize:(NSUInteger)size
 {
     self = [super init];
     if (self) {
-        self.document = [ESXPDocument newBuild:@"_root"];    // Create a new DOM document.
-        self.stack    = [[AKStack alloc] initWithSize:1000]; // Initialize the stack with just 1000 nodes.
+        self.document = [ESXPDocument newBuild:@"_root"];
+        self.stack    = [[AKStack alloc] initWithSize:size];
     }
     
     return self;
