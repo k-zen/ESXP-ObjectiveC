@@ -96,7 +96,7 @@
 + (ESXPStackDOMWalker *)newBuild;
 
 // MARK: Methods
-- (ESXPStackDOMWalker *)configure:(ESXPElement *)rootNode nodesToProcess:(unsigned short)nodesToProcess;
+- (ESXPStackDOMWalker *)configure:(NSUInteger)maxNodes rootNode:(ESXPElement *)rootNode nodesToProcess:(unsigned short)ntp;
 
 - (id<ESXPNode>)nextNode;
 

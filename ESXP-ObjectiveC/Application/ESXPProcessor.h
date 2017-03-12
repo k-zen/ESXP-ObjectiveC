@@ -33,11 +33,16 @@
 /// \author Andreas P. Koenzen <akc at apkc.net>
 /// \see    Builder Pattern
 @interface ESXPProcessor : NSObject
+// MARK: Properties
+@property (nonatomic, assign) NSUInteger maxNodes;
+
 // MARK: Builders
 /// Builder of new instances. Follows the Builder Pattern.
 ///
+/// \param maxNodes The maximum number of nodes.
+///
 /// \return A new instance of this class or nil if any problem.
-+ (ESXPProcessor *)newBuild;
++ (ESXPProcessor *)newBuild:(NSUInteger)maxNodes;
 
 // MARK: Methods
 /// Walks the DOM tree in search of a given tag and when found retrieves the tag's value.<br/>

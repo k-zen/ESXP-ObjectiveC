@@ -31,7 +31,7 @@
 {
     self = [super init];
     if (self) {
-        _processor = [ESXPProcessor new];
+        _processor = [ESXPProcessor newBuild:1000];
     }
     return self;
 }
@@ -39,7 +39,7 @@
 - (ESXPProcessorTest *)configure:(ESXPDocument *)doc rootNode:(NSString *)rootNode
 {
     @try {
-        self.walker = [[ESXPStackDOMWalker newBuild] configure:(ESXPElement *)[self.processor searchNode:doc rootNodeName:rootNode tagName:@"mediawiki"] nodesToProcess:ELEMENT_NODE];
+        self.walker = [[ESXPStackDOMWalker newBuild] configure:self->_processor.maxNodes rootNode:(ESXPElement *)[self.processor searchNode:doc rootNodeName:rootNode tagName:@"mediawiki"] nodesToProcess:ELEMENT_NODE];
     }
     @catch (NSException *exception) {
         NSString     *domain   = @"net.apkc.projects.ErrorDomain";
@@ -63,7 +63,7 @@
             if ([node getNodeType] == ELEMENT_NODE) {
                 if ([[node getNodeName] isEqualToString:@"page"]) {
                     ESXPWikiPage       *page = [ESXPWikiPage new];
-                    ESXPStackDOMWalker *subWalker = [[ESXPStackDOMWalker newBuild] configure:(ESXPElement *)node nodesToProcess:ELEMENT_NODE];
+                    ESXPStackDOMWalker *subWalker = [[ESXPStackDOMWalker newBuild] configure:self->_processor.maxNodes rootNode:(ESXPElement *)node nodesToProcess:ELEMENT_NODE];
                     while ([subWalker hasNext]) {
                         id<ESXPNode> subNode = [subWalker nextNode];
                         if ([[subNode getNodeName] isEqualToString:@"title"]) {

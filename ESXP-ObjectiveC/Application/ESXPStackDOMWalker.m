@@ -38,13 +38,13 @@
 }
 
 // MARK: Methods
-- (ESXPStackDOMWalker *)configure:(ESXPElement *)rootNode nodesToProcess:(unsigned short)ntp
+- (ESXPStackDOMWalker *)configure:(NSUInteger)maxNodes rootNode:(ESXPElement *)rootNode nodesToProcess:(unsigned short)ntp
 {
     if (rootNode == nil) {
         return self;
     }
     
-    self->nodes = [[AKStack alloc] init];
+    self->nodes = [[AKStack alloc] initWithSize:maxNodes];
     [self->nodes push:rootNode];
     self->nodesToProcess = ntp;
     

@@ -28,19 +28,22 @@
 
 @implementation ESXPProcessor
 // MARK: Builders
-+ (ESXPProcessor *)newBuild
++ (ESXPProcessor *)newBuild:(NSUInteger)maxNodes
 {
     ESXPProcessor *instance = [[ESXPProcessor alloc] init];
-    if (instance)
+    if (instance) {
+        instance->_maxNodes = maxNodes;
         return instance;
-    else
+    }
+    else {
         return nil;
+    }
 }
 
 // MARK: Methods
 - (NSString *)searchTagValue:(ESXPDocument *)doc rootNodeName:(NSString *)rootNodeName tagName:(NSString *)tagName strict:(BOOL)strict
 {
-    ESXPStackDOMWalker *walker = [[ESXPStackDOMWalker newBuild] configure:[doc getRootNode] nodesToProcess:ELEMENT_NODE];
+    ESXPStackDOMWalker *walker = [[ESXPStackDOMWalker newBuild] configure:self->_maxNodes rootNode:[doc getRootNode] nodesToProcess:ELEMENT_NODE];
     while ([walker hasNext]) {
         id<ESXPNode> node = [walker nextNode];
         if ([[node getNodeName] isEqualToString:tagName])
@@ -57,7 +60,7 @@
 
 - (NSString *)searchTagAttributeValue:(ESXPDocument *)doc rootNodeName:(NSString *)rootNodeName tagName:(NSString *)tagName attributeName:(NSString *)attributeName strict:(BOOL)strict
 {
-    ESXPStackDOMWalker *walker = [[ESXPStackDOMWalker newBuild] configure:[doc getRootNode] nodesToProcess:ELEMENT_NODE];
+    ESXPStackDOMWalker *walker = [[ESXPStackDOMWalker newBuild] configure:self->_maxNodes rootNode:[doc getRootNode] nodesToProcess:ELEMENT_NODE];
     while ([walker hasNext]) {
         id<ESXPNode> node = [walker nextNode];
         if ([node getNodeType] == ELEMENT_NODE) {
@@ -132,7 +135,7 @@
 
 - (NSString *)getNodeValue:(id<ESXPNode>)node strict:(BOOL)strict
 {
-    ESXPStackDOMWalker *walker = [[ESXPStackDOMWalker newBuild] configure:(ESXPElement *)node nodesToProcess:TEXT_NODE];
+    ESXPStackDOMWalker *walker = [[ESXPStackDOMWalker newBuild] configure:self->_maxNodes rootNode:(ESXPElement *)node nodesToProcess:TEXT_NODE];
     while ([walker hasNext]) {
         id<ESXPNode> node = [walker nextNode];
         if ([node getNodeType] == COMMENT_NODE)
@@ -174,7 +177,7 @@
 
 - (id<ESXPNode>)searchNode:(ESXPDocument *)doc rootNodeName:(NSString *)rootNodeName tagName:(NSString *)tagName
 {
-    ESXPStackDOMWalker *walker = [[ESXPStackDOMWalker newBuild] configure:[doc getRootNode] nodesToProcess:ELEMENT_NODE];
+    ESXPStackDOMWalker *walker = [[ESXPStackDOMWalker newBuild] configure:self->_maxNodes rootNode:[doc getRootNode] nodesToProcess:ELEMENT_NODE];
     while ([walker hasNext]) {
         id<ESXPNode> node = [walker nextNode];
         if ([[node getNodeName] isEqualToString:tagName])
