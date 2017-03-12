@@ -39,6 +39,14 @@
 @property (nonatomic, strong) ESXPDocument *document;
 @property (nonatomic, strong) AKStack      *stack;
 
+// MARK: Builders
+/// Builder of new instances. Follows the Builder Pattern.
+///
+/// \param maxNodes The maximum number of nodes.
+///
+/// \return A new instance of this class or nil if any problem.
++ (ESXPSAX2DOM *)newBuild:(NSUInteger)maxNodes;
+
 // MARK: Methods
 /// Returns the XML file as a DOM representation.
 ///

@@ -29,15 +29,17 @@
 
 @implementation ESXPSAX2DOM
 // MARK: NSObject Overriding
-- (ESXPSAX2DOM *)initWithSize:(NSUInteger)size
++ (ESXPSAX2DOM *)newBuild:(NSUInteger)maxNodes
 {
-    self = [super init];
-    if (self) {
-        self.document = [ESXPDocument newBuild:@"_root"];
-        self.stack    = [[AKStack alloc] initWithSize:size];
+    ESXPSAX2DOM *instance = [[ESXPSAX2DOM alloc] init];
+    if (instance) {
+        instance.document = [ESXPDocument newBuild:@"_root"];
+        instance.stack    = [[AKStack alloc] initWithSize:maxNodes];
+        return instance
     }
-    
-    return self;
+    else {
+        return nil;
+    }
 }
 
 // MARK: NSXMLParserDelegate Implementation
